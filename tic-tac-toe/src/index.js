@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 
 import './index.css';
@@ -122,9 +123,7 @@ class Game extends React.Component {
     });
 
     let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
+    if (!winner) {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
@@ -138,15 +137,25 @@ class Game extends React.Component {
             />
           </div>
           <div className="game-info">
+            {winner &&
+              <Alert variant="success">
+                <Alert.Heading>Winner is: {winner}</Alert.Heading>
+              </Alert>
+            }
+            {this.state.stepNumber === 9 && !winner &&
+              <Alert variant="danger">
+                <Alert.Heading>Nobody won the game</Alert.Heading>
+              </Alert>
+            }
             <div>{status}</div>
             <ol>{moves}</ol>
           </div>
-        <div className="reset">
-          <Button variant="warning"
-            onClick={() => this.resetGame()}>
-            Reset
-          </Button>
-        </div>
+          <div className="reset">
+            <Button variant="warning"
+              onClick={() => this.resetGame()}>
+              Reset
+            </Button>
+          </div>
         </div>
       </>
     );
