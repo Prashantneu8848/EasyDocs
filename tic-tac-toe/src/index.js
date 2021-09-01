@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from 'react-bootstrap/Button'
+
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Square(props) {
   return (
@@ -138,13 +141,12 @@ class Game extends React.Component {
             <div>{status}</div>
             <ol>{moves}</ol>
           </div>
-        </div>
         <div className="reset">
-          <button
-            className="reset"
+          <Button variant="warning"
             onClick={() => this.resetGame()}>
             Reset
-          </button>
+          </Button>
+        </div>
         </div>
       </>
     );
