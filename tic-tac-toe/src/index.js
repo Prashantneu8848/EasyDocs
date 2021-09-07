@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import SplashScreen from './SplashScreen';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,6 +70,14 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      showSplashScreen: true,
+    };
+
+  /**
+   * Callback function to close the user upload modal box.
+   */
+    this.handleSplashScreenClose = () => {
+      this.setState({ showSplashScreen: false });
     };
   }
 
@@ -129,6 +138,10 @@ class Game extends React.Component {
 
     return (
       <>
+        <SplashScreen
+          show={this.state.showSplashScreen}
+          handleSplashScreenClose={this.handleSplashScreenClose}
+        />
         <div className="game">
           <div className="game-board">
             <Board
