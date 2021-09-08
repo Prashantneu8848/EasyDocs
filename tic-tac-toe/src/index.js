@@ -85,7 +85,6 @@ class Game extends React.Component {
 
   startTimer() {
     if (this.state.elapsedTime === 0) {
-      console.log('here in the startimer function');
       this.intervalId = setInterval(() => {
         this.setState({ elapsedTime: this.state.elapsedTime + 1 });
       }, 1000);
