@@ -21,9 +21,9 @@ class SplashScreen extends React.Component {
 	render() {
 		return (
 			<Modal
-			show={this.props.show}
-			onHide={this.props.handleSplashScreenClose}
-			centered>
+				show={this.props.show}
+				onHide={this.props.handleSplashScreenClose}
+				centered>
 				<Modal.Header closeButton>
 					<Modal.Title id='contaid-modal-title-vcenter'>
 						Welcome to Tic Tac Toe
