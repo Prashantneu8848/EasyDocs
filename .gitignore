@@ -7,4 +7,5 @@ target/
 /.classpath
 /.factorypath
 /.project
+.vscode/
 /tic-tac-toe
