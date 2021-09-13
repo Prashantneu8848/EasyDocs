@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import SplashScreen from './SplashScreen';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,10 +70,35 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      showSplashScreen: true,
+      elapsedTime: 0,
+    };
+    this.intervalId = null;
+
+    /**
+     * Callback function to close the user upload modal box.
+     */
+    this.handleSplashScreenClose = () => {
+      this.setState({ showSplashScreen: false });
     };
   }
 
+  startTimer() {
+    if (this.state.elapsedTime === 0) {
+      this.intervalId = setInterval(() => {
+        this.setState({ elapsedTime: this.state.elapsedTime + 1 });
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    clearInterval(this.intervalId);
+  }
+
   handleClick(i) {
+    // start timer
+    console.log(i);
+    this.startTimer();
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -97,12 +123,14 @@ class Game extends React.Component {
   }
 
   resetGame() {
+    this.stopTimer();
     this.setState({
       history: [{
         squares: Array(9).fill(null)
       }],
       stepNumber: 0,
       xIsNext: true,
+      elapsedTime: 0,
     });
   }
 
@@ -110,7 +138,6 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
@@ -125,10 +152,20 @@ class Game extends React.Component {
     let status;
     if (!winner) {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    } else {
+      this.stopTimer();
+    }
+    const noWinnerAtEnd = this.state.stepNumber === 9 && !winner;
+    if (noWinnerAtEnd) {
+      this.stopTimer();
     }
 
     return (
       <>
+        <SplashScreen
+          show={this.state.showSplashScreen}
+          handleSplashScreenClose={this.handleSplashScreenClose}
+        />
         <div className="game">
           <div className="game-board">
             <Board
@@ -136,13 +173,18 @@ class Game extends React.Component {
               onClick={(i) => this.handleClick(i)}
             />
           </div>
+          {moves.length > 1 &&
+            <div className="time-info">
+              Time Elapsed: {this.state.elapsedTime} seconds.
+            </div>
+          }
           <div className="game-info">
             {winner &&
               <Alert variant="success">
                 <Alert.Heading>Winner is: {winner}</Alert.Heading>
               </Alert>
             }
-            {this.state.stepNumber === 9 && !winner &&
+            {noWinnerAtEnd &&
               <Alert variant="danger">
                 <Alert.Heading>Nobody won the game</Alert.Heading>
               </Alert>
