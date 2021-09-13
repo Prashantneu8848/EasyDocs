@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import SplashScreen from './SplashScreen';
 
-import './index.css';
+import './ticTacToe.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Square(props) {
@@ -61,7 +61,7 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
+class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -206,10 +206,10 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
+// ReactDOM.render(
+//   <TicTacToe />,
+//   document.getElementById('root')
+// );
 
 function calculateWinner(squares) {
   const lines = [
@@ -231,3 +231,5 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+export default TicTacToe;
