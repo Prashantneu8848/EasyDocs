@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import {
     Switch,
-    Link,
     Route
 } from "react-router-dom";
-import logo from './logo.svg';
 import "./App.css";
 import TicTacToe from './components/tic-tac-toe/TicTacToe';
+import TopNavbar from './components/TopNavbar';
 
 class App extends Component {
     render() {
@@ -16,12 +15,8 @@ class App extends Component {
                     <Route exact path="/ttt" component={TicTacToe} />
                     <Route path='/'>
                         <div className="App">
-                            <li>
-                                <Link to="/ttt">TicTacToe</Link>
-                            </li>
-                            <div className="App-header">
-                                <img src={logo} className="App-logo" alt="logo" />
-                                <h2>Welcome to React</h2>
+                            <div className='App-header'>
+                                <TopNavbar />
                             </div>
                         </div>
                     </Route>
@@ -30,6 +25,5 @@ class App extends Component {
         );
     }
 }
-
 
 export default App;
