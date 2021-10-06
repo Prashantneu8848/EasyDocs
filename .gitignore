@@ -10,3 +10,4 @@ target/
 /.project
 .vscode/
 /tic-tac-toe
+key.json
