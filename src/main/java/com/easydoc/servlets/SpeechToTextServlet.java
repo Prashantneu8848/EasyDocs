@@ -24,6 +24,7 @@ public class SpeechToTextServlet extends HttpServlet {
     try (SpeechClient speechClient = SpeechClient.create()) {
 
       // The path to the audio file to transcribe
+      // TODO: make it dynamic instead of retrieving a single file.
       String gcsUri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw";
 
       // Builds the sync recognize request
@@ -36,17 +37,13 @@ public class SpeechToTextServlet extends HttpServlet {
       RecognizeResponse recognizeResponse = speechClient.recognize(config, audio);
       List<SpeechRecognitionResult> results = recognizeResponse.getResultsList();
 
-      StringBuilder text = new StringBuilder();
-
       for (SpeechRecognitionResult result : results) {
         // There can be several alternative transcripts for a given chunk of speech.
         // Just use the first (most likely) one here.
         SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-        text.append(alternative.getTranscript());
-        // System.out.printf("Transcription: %s%n", alternative.getTranscript());
+        response.getWriter().println(alternative.getTranscript());
+        break;
       }
-      response.getWriter().println(text.toString());
-      // return Optional.of(text.toString());
     } catch (Exception exception) {
       System.err.println(exception);
       response.getWriter().println("Some error ocurred");
