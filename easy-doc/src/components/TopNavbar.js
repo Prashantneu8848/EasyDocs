@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import SpeechRecognition from './SpeechRecognition';
 
 /**
  * Top navigation bar for menu options.
@@ -16,11 +17,22 @@ class TopNavbar extends React.Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      speechModalBoxShow: false,
+    };
+
+    /**
+     * Callback function to close the speech recognition modal box.
+     */
+    this.handleSpeechModalClose = () => {
+      this.setState({ speechModalBoxShow: false });
+    };
 
     /**
      * Calls the {@code SpeechToTextServlet} and converts speech to text.
      */
     this.convertSpeechToText = () => {
+      this.setState({ speechModalBoxShow: true })
       console.log("converting speech to text...");
       fetch('/speechtotext')
         .then((response) => response.text())
@@ -117,6 +129,10 @@ class TopNavbar extends React.Component {
                     className='option1'>
                     Speech to Text
                   </Dropdown.Item>
+                  <SpeechRecognition
+                    show={this.state.speechModalBoxShow}
+                    handleSpeechModalClose={this.handleSpeechModalClose}
+                  />
                   <Dropdown.Item
                     className='option2'>
                     Option2
