@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
+import Image from 'react-bootstrap/Image'
+import miclogo from '../../public/voiceicon.png'
 
 /**
  * Modal Box for speech recognition.
@@ -46,11 +46,16 @@ class SpeechRecognition extends React.Component {
           className='modal-header'>
           <Modal.Title
             id="contained-modal-title-vcenter">
-            Start talking...
+            <p className="loading">
+              Start talking
+            </p>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Test
+          <Image
+            src={miclogo}
+            className="mic-icon"
+          />
         </Modal.Body>
       </Modal>
     )
