@@ -31,7 +31,7 @@ import org.apache.commons.cli.ParseException;
 
 public class SpeechToTextRealtime {
 
-  private static final int STREAMING_LIMIT = 290000; // ~5 minutes
+  private static final int STREAMING_LIMIT = 300000; // 5 minutes
 
   public static final String RED = "\033[0;31m";
   public static final String GREEN = "\033[0;32m";
@@ -54,7 +54,7 @@ public class SpeechToTextRealtime {
   private static StreamController referenceToStreamController;
   private static ByteString tempByteString;
 
-  public static void main(String... args) {
+  public static void convertToText(String... args) {
     InfiniteStreamRecognizeOptions options = InfiniteStreamRecognizeOptions.fromFlags(args);
     if (options == null) {
       // Could not parse.
@@ -166,9 +166,8 @@ public class SpeechToTextRealtime {
         // true,
         // bigEndian: false
         AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
-        DataLine.Info targetInfo = new Info(TargetDataLine.class, audioFormat); // Set the system information to
-                                                                                // read from the microphone
-                                                                                // audio
+        // Set the system information to read from the microphone audio.
+        DataLine.Info targetInfo = new Info(TargetDataLine.class, audioFormat);
         // stream
 
         if (!AudioSystem.isLineSupported(targetInfo)) {
@@ -181,8 +180,8 @@ public class SpeechToTextRealtime {
         micThread.start();
 
         long startTime = System.currentTimeMillis();
-
-        while (true) {
+        boolean sendReq = true;
+        while (sendReq) {
 
           long estimatedTime = System.currentTimeMillis() - startTime;
 
