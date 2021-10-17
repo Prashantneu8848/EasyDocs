@@ -33,7 +33,6 @@ class TopNavbar extends React.Component {
      */
     this.convertSpeechToText = () => {
       this.setState({ speechModalBoxShow: true })
-      console.log("converting speech to text...");
       fetch('/speechtotext')
         .then((response) => response.text())
         .then((text) => console.log(text))
