@@ -31,7 +31,7 @@ import org.apache.commons.cli.ParseException;
 
 public class SpeechToTextRealtime {
 
-  private static final int STREAMING_LIMIT = 300000; // 5 minutes
+  private static final int STREAMING_LIMIT = 10000; // 10 seconds.
 
   public static final String RED = "\033[0;31m";
   public static final String GREEN = "\033[0;32m";
@@ -41,7 +41,7 @@ public class SpeechToTextRealtime {
   private static volatile BlockingQueue<byte[]> sharedQueue = new LinkedBlockingQueue();
   private static TargetDataLine targetDataLine;
   private static int BYTES_PER_BUFFER = 6400; // buffer size in bytes
-
+  private static StringBuilder translatedText = new StringBuilder();
   private static int restartCounter = 0;
   private static ArrayList<ByteString> audioInput = new ArrayList<ByteString>();
   private static ArrayList<ByteString> lastAudioInput = new ArrayList<ByteString>();
@@ -54,7 +54,7 @@ public class SpeechToTextRealtime {
   private static StreamController referenceToStreamController;
   private static ByteString tempByteString;
 
-  public static void convertToText(String... args) {
+  public static String convertToText(String... args) {
     InfiniteStreamRecognizeOptions options = InfiniteStreamRecognizeOptions.fromFlags(args);
     if (options == null) {
       // Could not parse.
@@ -63,10 +63,16 @@ public class SpeechToTextRealtime {
     }
 
     try {
-      infiniteStreamingRecognize(options.langCode);
+      String translatedText = infiniteStreamingRecognize(options.langCode);
+      if (translatedText.equals("error")) {
+        return "error";
+      } else {
+        return translatedText;
+      }
     } catch (Exception e) {
       System.out.println("Exception caught: " + e);
     }
+    return "error";
   }
 
   public static String convertMillisToDate(double milliSeconds) {
@@ -77,8 +83,12 @@ public class SpeechToTextRealtime {
         TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))));
   }
 
-  /** Performs infinite streaming speech recognition */
-  public static void infiniteStreamingRecognize(String languageCode) throws Exception {
+  /**
+   * Performs infinite streaming speech recognition
+   * 
+   * @return
+   */
+  public static String infiniteStreamingRecognize(String languageCode) throws Exception {
 
     // Microphone Input buffering
     class MicBuffer implements Runnable {
@@ -127,23 +137,28 @@ public class SpeechToTextRealtime {
           SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
           if (result.getIsFinal()) {
             System.out.print(GREEN);
-            System.out.print("\033[2K\r");
-            System.out.printf("%s: %s [confidence: %.2f]\n", convertMillisToDate(correctedTime),
-                alternative.getTranscript(), alternative.getConfidence());
+            // System.out.print("\033[2K\r");
+            // System.out.printf("%s: %s [confidence: %.2f]\n",
+            // convertMillisToDate(correctedTime),
+            // alternative.getTranscript(), alternative.getConfidence());
+            translatedText.append(alternative.getTranscript());
             isFinalEndTime = resultEndTimeInMS;
             lastTranscriptWasFinal = true;
           } else {
-            System.out.print(RED);
-            System.out.print("\033[2K\r");
-            System.out.printf("%s: %s", convertMillisToDate(correctedTime), alternative.getTranscript());
+            // System.out.print(RED);
+            // System.out.print("\033[2K\r");
+            // System.out.printf("%s: %s", convertMillisToDate(correctedTime),
+            // alternative.getTranscript());
             lastTranscriptWasFinal = false;
           }
         }
 
         public void onComplete() {
+          System.out.println("this thing is complete");
         }
 
         public void onError(Throwable t) {
+          System.err.println(t.getMessage());
         }
       };
       clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
@@ -155,15 +170,15 @@ public class SpeechToTextRealtime {
       StreamingRecognitionConfig streamingRecognitionConfig = StreamingRecognitionConfig.newBuilder()
           .setConfig(recognitionConfig).setInterimResults(true).build();
 
+      // The first request in a streaming call has to be a config
       StreamingRecognizeRequest request = StreamingRecognizeRequest.newBuilder()
-          .setStreamingConfig(streamingRecognitionConfig).build(); // The first request in a streaming call
-                                                                   // has to be a config
+          .setStreamingConfig(streamingRecognitionConfig).build();
 
       clientStream.send(request);
 
       try {
-        // SampleRate:16000Hz, SampleSizeInBits: 16, Number of channels: 1, Signed:
-        // true,
+        // SampleRate:16000Hz, SampleSizeInBits: 16, Number of channels: 1,
+        // Signed: true,
         // bigEndian: false
         AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
         // Set the system information to read from the microphone audio.
@@ -186,18 +201,18 @@ public class SpeechToTextRealtime {
           long estimatedTime = System.currentTimeMillis() - startTime;
 
           if (estimatedTime >= STREAMING_LIMIT) {
-
+            // restarts the stream again.
             clientStream.closeSend();
             referenceToStreamController.cancel(); // remove Observer
 
             if (resultEndTimeInMS > 0) {
               finalRequestEndTime = isFinalEndTime;
             }
-            resultEndTimeInMS = 0;
+            // resultEndTimeInMS = 0;
 
             lastAudioInput = null;
             lastAudioInput = audioInput;
-            audioInput = new ArrayList<ByteString>();
+            // audioInput = new ArrayList<ByteString>();
 
             restartCounter++;
 
@@ -205,16 +220,21 @@ public class SpeechToTextRealtime {
               System.out.print('\n');
             }
 
-            newStream = true;
+            newStream = false;
 
-            clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
+            // ***do not delete for future reference.***
 
-            request = StreamingRecognizeRequest.newBuilder().setStreamingConfig(streamingRecognitionConfig).build();
+            // clientStream =
+            // client.streamingRecognizeCallable().splitCall(responseObserver);
 
-            System.out.println(YELLOW);
-            System.out.printf("%d: RESTARTING REQUEST\n", restartCounter * STREAMING_LIMIT);
+            // request =
+            // StreamingRecognizeRequest.newBuilder().setStreamingConfig(streamingRecognitionConfig).build();
 
-            startTime = System.currentTimeMillis();
+            // System.out.println(YELLOW);
+            // System.out.printf("%d: RESTARTING REQUEST\n", restartCounter *
+            // STREAMING_LIMIT);
+
+            // startTime = System.currentTimeMillis();
 
           } else {
 
@@ -256,8 +276,10 @@ public class SpeechToTextRealtime {
         }
       } catch (Exception e) {
         System.out.println(e);
+        return translatedText.toString();
       }
     }
+    return "error";
   }
 }
 
