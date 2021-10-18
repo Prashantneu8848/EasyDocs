@@ -11,7 +11,7 @@ public class SpeechToTextServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
-    String transaltedText = SpeechToTextRealtime.convertToText(new String[] { "lang_code" });
-    response.getWriter().println(transaltedText);
+    String translatedText = SpeechToTextRealtime.convertToText(new String[] { "lang_code" });
+    response.getWriter().println(translatedText);
   }
 }
