@@ -14,13 +14,16 @@ class SpeechRecognition extends React.Component {
      */
   constructor(props) {
     super(props);
+    this.state = {
+      timeRemainingInSeconds: 10
+    }
   }
 
   /**
    * After the component did mount, start listening
    */
   componentDidMount() {
-    console.log('component has displayed');
+    this.startTimer();
   }
 
   /**
@@ -28,6 +31,28 @@ class SpeechRecognition extends React.Component {
    */
   componentWillUnmount() {
     console.log('component is now closed');
+  }
+
+  /**
+   * Starts a countdown for a specified amount of time in the state.
+   */
+  startTimer() {
+    this.interval = setInterval(() => {
+      const remainingTime = this.state.timeRemainingInSeconds;
+      if (remainingTime > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
+      }
+
+      if (remainingTime === 0) {
+        clearInterval((this.interval))
+      } else {
+        this.setState(({ timeRemainingInSeconds }) => ({
+          timeRemainingInSeconds: remainingTime - 1
+        }))
+      }
+    }, 1000);
   }
 
   /**
@@ -49,6 +74,7 @@ class SpeechRecognition extends React.Component {
             <p className="loading">
               Start talking
             </p>
+            Time Remaining: {this.state.timeRemainingInSeconds}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
