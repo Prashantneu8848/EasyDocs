@@ -21,7 +21,10 @@ class TextEditor extends React.Component {
 		return (
 			<Form>
 				<Form.Group className="mb-3" controlId="editor.ControlText">
-					<Form.Control as="textarea" rows={25} />
+					<Form.Control
+						as="textarea"
+						rows={25} className="text-editor"
+						value={this.props.text} />
 				</Form.Group>
 			</Form>
 		);

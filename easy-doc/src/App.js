@@ -9,6 +9,25 @@ import TopNavbar from './components/TopNavbar';
 import TextEditor from './components/TextEditor';
 
 class App extends Component {
+	/**
+	 * @constructor
+	 * @param {Object}  props for React component.
+	 */
+	constructor(props) {
+		super(props);
+		this.state = {
+			textInEditor: "",
+		};
+
+		this.updateTextInEditor = this.updateTextInEditor.bind(this)
+	}
+
+	updateTextInEditor(text) {
+		this.setState({
+			textInEditor: text
+		})
+	}
+
 	render() {
 		return (
 			<main>
@@ -17,10 +36,10 @@ class App extends Component {
 					<Route path='/'>
 						<div className="App">
 							<div className='App-header'>
-								<TopNavbar />
+								<TopNavbar updateTextInEditor={this.updateTextInEditor} />
 							</div>
 							<div className='text-editor'>
-								<TextEditor />
+								<TextEditor text={this.state.textInEditor} />
 							</div>
 						</div>
 					</Route>

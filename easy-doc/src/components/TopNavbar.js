@@ -32,11 +32,14 @@ class TopNavbar extends React.Component {
      * Calls the {@code SpeechToTextServlet} and converts speech to text.
      */
     this.convertSpeechToText = () => {
-      this.setState({ speechModalBoxShow: true })
       fetch('/speechtotext')
         .then((response) => response.text())
-        .then((text) => console.log(text))
-        .catch((error) => console.log(error))
+        .then((text) => {
+          this.props.updateTextInEditor(text);
+        })
+        .catch((error) => console.log(error));
+
+      this.setState({ speechModalBoxShow: true })
     };
   }
 
