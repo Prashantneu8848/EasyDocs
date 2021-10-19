@@ -36,6 +36,7 @@ class TopNavbar extends React.Component {
         .then((response) => response.text())
         .then((text) => {
           this.props.updateTextInEditor(text);
+          this.setState({ speechModalBoxShow: false });
         })
         .catch((error) => console.log(error));
 
