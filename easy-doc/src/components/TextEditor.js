@@ -11,6 +11,18 @@ class TextEditor extends React.Component {
 	 */
 	constructor(props) {
 		super(props);
+		this.state = {
+			textInProps: this.props.text,
+		};
+	}
+
+	/** Invoked before a mounted component receives new props.
+	 * @param {Object}  nextProps for React component.
+	 */
+	componentWillReceiveProps(nextProps) {
+		if (typeof nextProps.text != 'undefined') {
+			this.setState({ textInProps: nextProps.text });
+		}
 	}
 
 	/**
@@ -23,8 +35,10 @@ class TextEditor extends React.Component {
 				<Form.Group className="mb-3" controlId="editor.ControlText">
 					<Form.Control
 						as="textarea"
-						rows={25} className="text-editor"
-						value={this.props.text} />
+						onChange={e => this.setState({ textInProps: e.target.value })}
+						rows={25}
+						className="text-editor"
+						value={this.state.textInProps} />
 				</Form.Group>
 			</Form>
 		);
