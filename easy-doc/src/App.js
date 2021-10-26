@@ -17,15 +17,15 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			textInEditor: "",
+			translatedText: "",
 		};
 
-		this.updateTextInEditor = this.updateTextInEditor.bind(this)
+		this.addTranslatedText = this.addTranslatedText.bind(this)
 	}
 
-	updateTextInEditor(text) {
+	addTranslatedText(text) {
 		this.setState({
-			textInEditor: text
+			translatedText: text
 		})
 	}
 
@@ -37,10 +37,10 @@ class App extends Component {
 					<Route path='/'>
 						<div className="App">
 							<div className='App-header'>
-								<TopNavbar updateTextInEditor={this.updateTextInEditor} />
+								<TopNavbar addTranslatedText={this.addTranslatedText} />
 							</div>
 							<div className='text-editor'>
-								<TextEditor text={this.state.textInEditor} />
+								<TextEditor text={this.state.translatedText} />
 							</div>
 							<div className='test'>
 								<GoogleDrivePicker />
@@ -48,7 +48,7 @@ class App extends Component {
 						</div>
 					</Route>
 				</Switch>
-			</main >
+			</main>
 		);
 	}
 }
