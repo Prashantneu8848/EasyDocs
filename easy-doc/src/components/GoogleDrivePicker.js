@@ -56,7 +56,7 @@ class GoogleDrivePicker extends React.Component {
             picker.build().setVisible(true);
           }}
         >
-          <Button type="submit" value="Open Google" />
+          <Button type="submit">Google</Button>
         </GooglePicker>
       </div>
     )
