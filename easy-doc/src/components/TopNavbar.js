@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SpeechRecognition from './SpeechRecognition';
+import GoogleDrivePicker from './GoogleDrivePicker';
 
 /**
  * Top navigation bar for menu options.
@@ -113,6 +114,10 @@ class TopNavbar extends React.Component {
                   <Dropdown.Item
                     className='option2'>
                     Picture
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    className='option3'>
+                    From Google Drive
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
