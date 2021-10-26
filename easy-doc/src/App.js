@@ -7,6 +7,7 @@ import "./App.css";
 import TicTacToe from './components/tic-tac-toe/TicTacToe';
 import TopNavbar from './components/TopNavbar';
 import TextEditor from './components/TextEditor';
+import GoogleDrivePicker from './components/GoogleDrivePicker';
 
 class App extends Component {
 	/**
@@ -40,6 +41,9 @@ class App extends Component {
 							</div>
 							<div className='text-editor'>
 								<TextEditor text={this.state.textInEditor} />
+							</div>
+							<div className='test'>
+								<GoogleDrivePicker />
 							</div>
 						</div>
 					</Route>
