@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SpeechRecognition from './SpeechRecognition';
 import ImageFilePicker from './ImageFilePicker';
+import GoogleDrivePicker from './GoogleDrivePicker';
 
 /**
  * Top navigation bar for menu options.
@@ -34,16 +35,14 @@ class TopNavbar extends React.Component {
      * Calls the {@code SpeechToTextServlet} and converts speech to text.
      */
     this.convertSpeechToText = () => {
+      this.setState({ speechModalBoxShow: true })
       fetch('/speechtotext')
         .then((response) => response.text())
         .then((text) => {
           this.props.addTranslatedText(text);
-          // console.log(text);
           this.setState({ speechModalBoxShow: false });
         })
         .catch((error) => console.log(error));
-
-      this.setState({ speechModalBoxShow: true })
     };
   }
 
@@ -121,7 +120,7 @@ class TopNavbar extends React.Component {
                     </Dropdown.Item>
                     <Dropdown.Item
                       className='option3'>
-                      From Google Drive
+                      <GoogleDrivePicker />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

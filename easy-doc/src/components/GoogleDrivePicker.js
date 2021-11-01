@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import GooglePicker from 'react-google-picker';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 /**
  * File picker to select items from Google Drive.
@@ -56,7 +57,10 @@ class GoogleDrivePicker extends React.Component {
             picker.build().setVisible(true);
           }}
         >
-          <Button type="submit">Google</Button>
+          <Dropdown.Item
+            className='dropdowns'>
+            Google
+          </Dropdown.Item>
         </GooglePicker>
       </div>
     )
