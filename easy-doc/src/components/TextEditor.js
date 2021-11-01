@@ -11,9 +11,24 @@ class TextEditor extends React.Component {
 	 */
 	constructor(props) {
 		super(props);
+		this.docRef = React.createRef();
 		this.state = {
 			textInEditor: this.props.text,
+			printBtnClicked: false,
 		};
+	}
+
+	componentDidMount = () => {
+		console.log(this.docRef.current.innerHTML);
+	}
+
+	printDoc = () => {
+		var oPrntWin = window.open("",
+			"_blank",
+			"width=450,height=470,left=400,top=100,menubar=yestoolbar=no,location=no,scrollbars=yes");
+		oPrntWin.document.open();
+		oPrntWin.document.write("<!doctype html><html><head><title>Print<\/title><\/head><body onload=\"print();\">" + this.docRef.current.innerHTML + "<\/body><\/html>");
+		oPrntWin.document.close();
 	}
 
 	/** Invoked before a mounted component receives new props.
@@ -23,6 +38,10 @@ class TextEditor extends React.Component {
 		if (typeof nextProps.text != 'undefined') {
 			this.setState({ textInEditor: this.state.textInEditor + nextProps.text });
 		}
+
+		if (typeof nextProps.printBtnClicked != 'undefined') {
+			this.printDoc();
+		}
 	}
 
 	/**
@@ -30,17 +49,17 @@ class TextEditor extends React.Component {
 	 *  @return { React.ReactNode } React virtual DOM.
 	 */
 	render() {
+		if (this.state.printBtnClicked) {
+			this.printDoc();
+		}
 		return (
-			<Form>
-				<Form.Group className="mb-3" controlId="editor.ControlText">
-					<Form.Control
-						as="textarea"
-						onChange={e => this.setState({ textInEditor: e.target.value })}
-						rows={25}
-						className="text-editor"
-						value={this.state.textInEditor} />
-				</Form.Group>
-			</Form>
+			<div
+				className="text-editor"
+				contentEditable="true"
+				ref={this.docRef}
+			>
+				<p>...</p>
+			</div>
 		);
 	}
 }
