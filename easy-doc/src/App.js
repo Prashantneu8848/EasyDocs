@@ -42,9 +42,6 @@ class App extends Component {
 							<div className='text-editor'>
 								<TextEditor text={this.state.translatedText} />
 							</div>
-							<div className='test'>
-								<GoogleDrivePicker />
-							</div>
 						</div>
 					</Route>
 				</Switch>
