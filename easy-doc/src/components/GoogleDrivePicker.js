@@ -61,7 +61,6 @@ class GoogleDrivePicker extends React.Component {
             className='dropdowns'>
             Google
           </Dropdown.Item>
-          {/* <Button variant="light">Google Drive</Button> */}
         </GooglePicker>
       </div>
     )
