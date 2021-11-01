@@ -7,7 +7,6 @@ import "./App.css";
 import TicTacToe from './components/tic-tac-toe/TicTacToe';
 import TopNavbar from './components/TopNavbar';
 import TextEditor from './components/TextEditor';
-import GoogleDrivePicker from './components/GoogleDrivePicker';
 
 class App extends Component {
 	/**
@@ -18,6 +17,7 @@ class App extends Component {
 		super(props);
 		this.state = {
 			translatedText: "",
+			printBtnClicked: false,
 		};
 
 		this.addTranslatedText = this.addTranslatedText.bind(this)
@@ -29,6 +29,10 @@ class App extends Component {
 		})
 	}
 
+	handlePrintButtonClick = () => {
+		this.setState({ printBtnClicked: true });
+	};
+
 	render() {
 		return (
 			<main>
@@ -37,10 +41,14 @@ class App extends Component {
 					<Route path='/'>
 						<div className="App">
 							<div className='App-header'>
-								<TopNavbar addTranslatedText={this.addTranslatedText} />
+								<TopNavbar
+									handlePrintButtonClick={this.handlePrintButtonClick}
+									addTranslatedText={this.addTranslatedText} />
 							</div>
-							<div className='text-editor'>
-								<TextEditor text={this.state.translatedText} />
+							<div className='text-box'>
+								<TextEditor
+									printBtnClicked={this.state.printBtnClicked}
+									text={this.state.translatedText} />
 							</div>
 						</div>
 					</Route>

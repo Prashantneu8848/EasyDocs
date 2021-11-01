@@ -46,6 +46,10 @@ class TopNavbar extends React.Component {
     };
   }
 
+  handlePrintButtonClick = () => {
+    this.props.handlePrintButtonClick();
+  };
+
   /**
    * Renders navigation bar at the top of the webpage.
    *  @return { React.ReactNode } React virtual DOM.
@@ -74,6 +78,11 @@ class TopNavbar extends React.Component {
                     <Dropdown.Item
                       className='option2'>
                       Download
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => this.handlePrintButtonClick()}
+                      className='option3'>
+                      Print
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
