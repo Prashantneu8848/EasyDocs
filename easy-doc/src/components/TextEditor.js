@@ -18,10 +18,17 @@ class TextEditor extends React.Component {
 		};
 	}
 
+	/**
+		* Invoked immediately after { @TextEditor } is mounted.
+		*/
 	componentDidMount = () => {
 		console.log(this.docRef.current.innerHTML);
 	}
 
+	/**
+		* Opens a new browser tab and provides option to print the content in
+		* { @TextEditor }.
+		*/
 	printDoc = () => {
 		var oPrntWin = window.open("",
 			"_blank",

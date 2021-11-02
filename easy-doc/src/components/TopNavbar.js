@@ -46,13 +46,16 @@ class TopNavbar extends React.Component {
     };
   }
 
+  /**
+    * Callback function for the print button.
+    */
   handlePrintButtonClick = () => {
     this.props.handlePrintButtonClick();
   };
 
   /**
    * Renders navigation bar at the top of the webpage.
-   *  @return { React.ReactNode } React virtual DOM.
+   * @return { React.ReactNode } React virtual DOM.
    */
   render() {
     return (

@@ -23,16 +23,27 @@ class App extends Component {
 		this.addTranslatedText = this.addTranslatedText.bind(this)
 	}
 
+	/**
+	 * Saves the translated text in the component's state.
+	 * @param {String} text from the Google Speech to Text API.
+	 */
 	addTranslatedText(text) {
 		this.setState({
 			translatedText: text
 		})
 	}
 
+	/**
+	 * Callback handler for print button in { @TopNavbar }.
+	 */
 	handlePrintButtonClick = () => {
 		this.setState({ printBtnClicked: true });
 	};
 
+	/**
+	 * Renders { @TopNavbar } and { @TextEditor }.
+	 * @return { React.ReactNode } React virtual DOM.
+	 */
 	render() {
 		return (
 			<main>
