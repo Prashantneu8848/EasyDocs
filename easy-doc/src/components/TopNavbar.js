@@ -54,6 +54,25 @@ class TopNavbar extends React.Component {
   };
 
   /**
+    * Applies styling to the selected text.
+    * @param {String} command to apply to the text.
+    * @param {Object} value to apply with the command.
+    */
+  applyStyleToEditor = (command, value) => {
+    if (command === 'forecolor' || command === 'fontname') {
+      document.execCommand('styleWithCSS', false, true);
+      if (command === 'forecolor') {
+        document.execCommand('foreColor', false, value);
+      }
+      if (command === 'fontname') {
+        document.execCommand('fontname', false, value);
+      }
+    }
+    document.execCommand('styleWithCSS', false, false);
+    document.execCommand(command, false, value);
+  }
+
+  /**
    * Renders navigation bar at the top of the webpage.
    * @return { React.ReactNode } React virtual DOM.
    */
@@ -63,7 +82,9 @@ class TopNavbar extends React.Component {
         <Navbar bg='dark' variant='dark' fixed='top'>
           <Container>
             <Nav className='ml-auto links'>
-              <Form.Control type="text" placeholder="Untitled" />
+              <Form.Control
+                type="text"
+                placeholder="Untitled" />
               <>
                 <Dropdown className='dropdowns'>
                   <Dropdown.Toggle
@@ -165,21 +186,38 @@ class TopNavbar extends React.Component {
               </>
               <>
                 <Form.Control
+                  onChange={(e) => this.applyStyleToEditor('forecolor', e.target.value)}
                   type="color"
-                  id="exampleColorInput"
-                  defaultValue="#000000"
+                  id="colorInput"
                   title="Color"
                 />
-                <Form.Select aria-label="different fonts">
-                  <option value="1">Arial</option>
-                  <option value="2">Calibre</option>
-                  <option value="3">Roboto</option>
+                <Form.Select
+                  onChange={(e) => this.applyStyleToEditor('fontname', e.target.value)}
+                  aria-label="different fonts">
+                  <option value="Arial">Arial</option>
+                  <option value="Calibre">Calibre</option>
+                  <option value="Arial Black">Arial Black</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Monaco">Monaco</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Luminari">Luminari</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Times New Roman">Times New Roman</option>
                 </Form.Select>
               </>
               {"  "}
-              <Button variant="outline-light">+</Button>
+              {/* Look into window.computedsize and window.selection */}
+              <Button
+                onClick={(e) => this.applyStyleToEditor('fontsize', 7)}
+                variant="outline-light"
+              >+</Button>
               {"  "}
-              <Button variant="outline-light">-</Button>
+              <Button
+                onClick={() => this.applyStyleToEditor('fontsize', 1)}
+                variant="outline-light"
+              >-</Button>
             </Nav>
           </Container>
           <Navbar.Brand>
