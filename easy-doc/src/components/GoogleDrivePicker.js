@@ -13,9 +13,20 @@ class GoogleDrivePicker extends React.Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      AUTH_TOKEN: ""
+    };
   }
 
-
+  /**
+   * Opens a new window to preview the image.
+   * 
+   * @param {data} fileId for the image. 
+   */
+  previewImage(data) {
+    let url = "https://drive.google.com/uc?export=view&id=" + data
+    window.open(url, '_blank').focus();
+  }
   /**
    * Renders navigation bar at the top of the webpage.
    *  @return { React.ReactNode } React virtual DOM.
@@ -35,6 +46,9 @@ class GoogleDrivePicker extends React.Component {
           developerKey={API_KEY}
           scope={scopes}
           onChange={data => console.log('on change:', data)}
+          onAuthenticate={token => {
+            this.setState({ AUTH_TOKEN: token });
+          }}
           onAuthFailed={data => console.log('on auth failed:', data)}
           navHidden={true}
           mimeTypes={["image/png", "image/jpeg", "image/jpg"]}
@@ -47,8 +61,7 @@ class GoogleDrivePicker extends React.Component {
               .setAppId(APP_ID)
               .setCallback((data) => {
                 if (data.action === google.picker.Action.PICKED) {
-                  var fileId = data.docs[0].id;
-                  alert("The user selected: " + fileId);
+                  this.previewImage(data.docs[0].id)
                 }
               })
               .enableFeature(google.picker.Feature.NAV_HIDDEN)
