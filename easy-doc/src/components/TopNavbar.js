@@ -9,6 +9,8 @@ import SpeechRecognition from './SpeechRecognition';
 import ImageFilePicker from './ImageFilePicker';
 import GoogleDrivePicker from './GoogleDrivePicker';
 
+
+// stuffs to do: saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
 /**
  * Top navigation bar for menu options.
  */
@@ -39,6 +41,7 @@ class TopNavbar extends React.Component {
       fetch('/speechtotext')
         .then((response) => response.text())
         .then((text) => {
+          console.log(text);
           this.props.addTranslatedText(text);
           this.setState({ speechModalBoxShow: false });
         })
@@ -86,6 +89,16 @@ class TopNavbar extends React.Component {
                 type="text"
                 placeholder="Untitled" />
               <>
+                <Button
+                  className='navbar-buttons'
+                  onClick={() => this.applyStyleToEditor('undo')}
+                  variant="outline-light"
+                >U</Button>
+                <Button
+                  className='navbar-buttons'
+                  onClick={() => this.applyStyleToEditor('redo')}
+                  variant="outline-light"
+                >R</Button>
                 <Dropdown className='dropdowns'>
                   <Dropdown.Toggle
                     variant='dark'
@@ -207,17 +220,32 @@ class TopNavbar extends React.Component {
                   <option value="Times New Roman">Times New Roman</option>
                 </Form.Select>
               </>
-              {"  "}
               {/* Look into window.computedsize and window.selection */}
               <Button
+                className='navbar-buttons'
                 onClick={(e) => this.applyStyleToEditor('fontsize', 7)}
                 variant="outline-light"
               >+</Button>
-              {"  "}
               <Button
+                className='navbar-buttons'
                 onClick={() => this.applyStyleToEditor('fontsize', 1)}
                 variant="outline-light"
               >-</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('bold')}
+                variant="outline-light"
+              >B</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('italic')}
+                variant="outline-light"
+              >I</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('underline')}
+                variant="outline-light"
+              >U</Button>
             </Nav>
           </Container>
           <Navbar.Brand>
