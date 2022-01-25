@@ -10,7 +10,14 @@ import ImageFilePicker from './ImageFilePicker';
 import GoogleDrivePicker from './GoogleDrivePicker';
 
 
-// stuffs to do: saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
+/**
+ * stuffs to do:
+ * 1. saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
+ * 2. fix image
+ * 3. Add numbering
+ * 4. Version control
+*/
+
 /**
  * Top navigation bar for menu options.
  */
@@ -62,13 +69,19 @@ class TopNavbar extends React.Component {
     * @param {Object} value to apply with the command.
     */
   applyStyleToEditor = (command, value) => {
-    if (command === 'forecolor' || command === 'fontname') {
+    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter']) {
+      // if (command === 'forecolor' || command === 'fontname') {
       document.execCommand('styleWithCSS', false, true);
       if (command === 'forecolor') {
         document.execCommand('foreColor', false, value);
-      }
-      if (command === 'fontname') {
+      } else if (command === 'fontname') {
         document.execCommand('fontname', false, value);
+      } else if (command === 'justifyleft') {
+        document.execCommand('justifyleft', false, value)
+      } else if (command === 'justifyright') {
+        document.execCommand('justifyright', false, value)
+      } else if (command === 'justifycenter') {
+        document.execCommand('justifycenter', false, value)
       }
     }
     document.execCommand('styleWithCSS', false, false);
@@ -87,6 +100,7 @@ class TopNavbar extends React.Component {
             <Nav className='ml-auto links'>
               <Form.Control
                 type="text"
+                htmlSize="10"
                 placeholder="Untitled" />
               <>
                 <Button
@@ -246,6 +260,21 @@ class TopNavbar extends React.Component {
                 onClick={() => this.applyStyleToEditor('underline')}
                 variant="outline-light"
               >U</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('justifyleft')}
+                variant="outline-light"
+              >LA</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('justifycenter')}
+                variant="outline-light"
+              >CA</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('justifyright')}
+                variant="outline-light"
+              >RA</Button>
             </Nav>
           </Container>
           <Navbar.Brand>
