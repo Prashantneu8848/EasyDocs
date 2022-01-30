@@ -103,16 +103,6 @@ class TopNavbar extends React.Component {
                 htmlSize="10"
                 placeholder="Untitled" />
               <>
-                <Button
-                  className='navbar-buttons'
-                  onClick={() => this.applyStyleToEditor('undo')}
-                  variant="outline-light"
-                >U</Button>
-                <Button
-                  className='navbar-buttons'
-                  onClick={() => this.applyStyleToEditor('redo')}
-                  variant="outline-light"
-                >R</Button>
                 <Dropdown className='dropdowns'>
                   <Dropdown.Toggle
                     variant='dark'
@@ -260,21 +250,6 @@ class TopNavbar extends React.Component {
                 onClick={() => this.applyStyleToEditor('underline')}
                 variant="outline-light"
               >U</Button>
-              <Button
-                className='navbar-buttons'
-                onClick={() => this.applyStyleToEditor('justifyleft')}
-                variant="outline-light"
-              >LA</Button>
-              <Button
-                className='navbar-buttons'
-                onClick={() => this.applyStyleToEditor('justifycenter')}
-                variant="outline-light"
-              >CA</Button>
-              <Button
-                className='navbar-buttons'
-                onClick={() => this.applyStyleToEditor('justifyright')}
-                variant="outline-light"
-              >RA</Button>
             </Nav>
           </Container>
           <Navbar.Brand>
@@ -284,6 +259,36 @@ class TopNavbar extends React.Component {
         {this.state.showFilePicker &&
           <ImageFilePicker />
         }
+        <br />
+        <Navbar bg="dark" variant="light" fixed='bottom'>
+          <Container>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('undo')}
+              variant="outline-light"
+            >U</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('redo')}
+              variant="outline-light"
+            >R</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('justifyleft')}
+              variant="outline-light"
+            >LA</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('justifycenter')}
+              variant="outline-light"
+            >CA</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('justifyright')}
+              variant="outline-light"
+            >RA</Button>
+          </Container>
+        </Navbar>
       </>
     );
   }
