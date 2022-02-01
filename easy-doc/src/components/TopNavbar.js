@@ -69,11 +69,16 @@ class TopNavbar extends React.Component {
     * @param {Object} value to apply with the command.
     */
   applyStyleToEditor = (command, value) => {
-    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter']) {
-      // if (command === 'forecolor' || command === 'fontname') {
+    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor']) {
       document.execCommand('styleWithCSS', false, true);
       if (command === 'forecolor') {
         document.execCommand('foreColor', false, value);
+      } else if (command === 'insertorderedlist') {
+        document.execCommand('insertorderedlist', false, value);
+      } else if (command === 'insertunorderedlist') {
+        document.execCommand('insertunorderedlist', false, value);
+      } else if (command === 'backcolor') {
+        document.execCommand('backcolor', false, value);
       } else if (command === 'fontname') {
         document.execCommand('fontname', false, value);
       } else if (command === 'justifyleft') {
@@ -250,6 +255,22 @@ class TopNavbar extends React.Component {
                 onClick={() => this.applyStyleToEditor('underline')}
                 variant="outline-light"
               >U</Button>
+              <Form.Control
+                // as='input'
+                value='11'
+                type='number'
+                htmlSize="10"
+                onChange={(e) => console.log(e.target.value)}
+              />
+              <Form.Floating>
+                <Form.Control
+                  onChange={(e) => this.applyStyleToEditor('backcolor', e.target.value)}
+                  type="color"
+                  id="colorInputBack"
+                  title="BackColor"
+                />
+                <label htmlFor="floatingInputCustom">BG</label>
+              </Form.Floating>
             </Nav>
           </Container>
           <Navbar.Brand>
@@ -287,6 +308,16 @@ class TopNavbar extends React.Component {
               onClick={() => this.applyStyleToEditor('justifyright')}
               variant="outline-light"
             >RA</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('insertorderedlist')}
+              variant="outline-light"
+            >OL</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('insertunorderedlist')}
+              variant="outline-light"
+            >UL</Button>
           </Container>
         </Navbar>
       </>
