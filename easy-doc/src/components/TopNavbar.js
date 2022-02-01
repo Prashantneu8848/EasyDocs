@@ -69,10 +69,12 @@ class TopNavbar extends React.Component {
     * @param {Object} value to apply with the command.
     */
   applyStyleToEditor = (command, value) => {
-    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor']) {
+    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor', 'insertunorderedlist', 'insertorderedlist']) {
       document.execCommand('styleWithCSS', false, true);
       if (command === 'forecolor') {
         document.execCommand('foreColor', false, value);
+      } else if (command === 'insertorderedlist') {
+        document.execCommand('insertorderedlist', false, value);
       } else if (command === 'insertorderedlist') {
         document.execCommand('insertorderedlist', false, value);
       } else if (command === 'insertunorderedlist') {
@@ -318,6 +320,18 @@ class TopNavbar extends React.Component {
               onClick={() => this.applyStyleToEditor('insertunorderedlist')}
               variant="outline-light"
             >UL</Button>
+            <Button
+              className='navbar-buttons'
+              // bsPrefix='link-button'
+              onClick={() => {
+                let link = prompt("enter the link");
+                if (link && !(/^\s*$/.test(link))) {
+                  console.log(link);
+                  this.applyStyleToEditor('createlink', "https://" + link);
+                }
+              }}
+              variant="outline-light"
+            >Link</Button>
           </Container>
         </Navbar>
       </>
