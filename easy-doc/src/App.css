@@ -6,6 +6,11 @@
   margin-left: 4px;
 }
 
+/* .link-button {
+  background-image: url("./icons/right-alignment.png");
+  background-size: cover;
+} */
+
 .text-editor {
   border: 1px #000000 solid;
   height: 100%;
