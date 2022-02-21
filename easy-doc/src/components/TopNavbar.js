@@ -14,10 +14,7 @@ import FreeDraw from './FreeDraw';
  * stuffs to do:
  * 1. saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
  * 2. fix image
- * 4. Version control
- * 5. add indentation
- * 6. delete indentation
- * 7. remove styling
+ * 3. Version control
 */
 
 /**
@@ -83,29 +80,13 @@ class TopNavbar extends React.Component {
     * @param {Object} value to apply with the command.
     */
   applyStyleToEditor = (command, value) => {
-    if (command in ['forecolor', 'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor', 'insertunorderedlist', 'insertorderedlist']) {
+    if (command in ['removeFormat', 'outdent', 'indent', 'forecolor',
+      'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor',
+      'insertunorderedlist', 'insertorderedlist']) {
       document.execCommand('styleWithCSS', false, true);
-      if (command === 'forecolor') {
-        document.execCommand('foreColor', false, value);
-      } else if (command === 'insertorderedlist') {
-        document.execCommand('insertorderedlist', false, value);
-      } else if (command === 'insertorderedlist') {
-        document.execCommand('insertorderedlist', false, value);
-      } else if (command === 'insertunorderedlist') {
-        document.execCommand('insertunorderedlist', false, value);
-      } else if (command === 'backcolor') {
-        document.execCommand('backcolor', false, value);
-      } else if (command === 'fontname') {
-        document.execCommand('fontname', false, value);
-      } else if (command === 'justifyleft') {
-        document.execCommand('justifyleft', false, value)
-      } else if (command === 'justifyright') {
-        document.execCommand('justifyright', false, value)
-      } else if (command === 'justifycenter') {
-        document.execCommand('justifycenter', false, value)
-      }
+    } else {
+      document.execCommand('styleWithCSS', false, false);
     }
-    document.execCommand('styleWithCSS', false, false);
     document.execCommand(command, false, value);
   }
 
@@ -339,6 +320,21 @@ class TopNavbar extends React.Component {
               onClick={() => this.applyStyleToEditor('insertunorderedlist')}
               variant="outline-light"
             >UL</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('indent')}
+              variant="outline-light"
+            >AI</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('outdent')}
+              variant="outline-light"
+            >DI</Button>
+            <Button
+              className='navbar-buttons'
+              onClick={() => this.applyStyleToEditor('removeFormat')}
+              variant="outline-light"
+            >RS</Button>
             <Button
               className='navbar-buttons'
               // bsPrefix='link-button'
