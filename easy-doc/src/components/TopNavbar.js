@@ -8,14 +8,16 @@ import Button from 'react-bootstrap/Button';
 import SpeechRecognition from './SpeechRecognition';
 import ImageFilePicker from './ImageFilePicker';
 import GoogleDrivePicker from './GoogleDrivePicker';
-
+import FreeDraw from './FreeDraw';
 
 /**
  * stuffs to do:
  * 1. saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
  * 2. fix image
- * 3. Add numbering
  * 4. Version control
+ * 5. add indentation
+ * 6. delete indentation
+ * 7. remove styling
 */
 
 /**
@@ -31,6 +33,7 @@ class TopNavbar extends React.Component {
     this.state = {
       speechModalBoxShow: false,
       showFilePicker: false,
+      drawinghModalBoxShow: false,
     };
 
     /**
@@ -38,6 +41,13 @@ class TopNavbar extends React.Component {
      */
     this.handleSpeechModalClose = () => {
       this.setState({ speechModalBoxShow: false });
+    };
+
+    /**
+     * Callback function to close the free drawing modal box.
+     */
+    this.handleDrawinghModalClose = () => {
+      this.setState({ drawinghModalBoxShow: false });
     };
 
     /**
@@ -53,6 +63,10 @@ class TopNavbar extends React.Component {
           this.setState({ speechModalBoxShow: false });
         })
         .catch((error) => console.log(error));
+    };
+
+    this.startDrawing = () => {
+      this.setState({ drawinghModalBoxShow: true })
     };
   }
 
@@ -167,9 +181,14 @@ class TopNavbar extends React.Component {
                   <Dropdown.Menu
                     className='dropdown-menu'>
                     <Dropdown.Item
+                      onClick={() => this.startDrawing()}
                       className='option1'>
                       Drawing
                     </Dropdown.Item>
+                    <FreeDraw
+                      show={this.state.drawinghModalBoxShow}
+                      handleDrawinghModalClose={this.handleDrawinghModalClose}
+                    />
                     <Dropdown.Item
                       onClick={() => this.setState({ showFilePicker: true })}
                       className='option2'>
