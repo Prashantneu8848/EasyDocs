@@ -9,6 +9,7 @@ import SpeechRecognition from './SpeechRecognition';
 import ImageFilePicker from './ImageFilePicker';
 import GoogleDrivePicker from './GoogleDrivePicker';
 import FreeDraw from './FreeDraw';
+import { LA } from '../icons/la.png';
 
 /**
  * stuffs to do:
@@ -283,61 +284,71 @@ class TopNavbar extends React.Component {
           <ImageFilePicker />
         }
         <br />
-        <Navbar bg="dark" variant="light" fixed='bottom'>
-          <Container>
+        <Navbar
+          bg="light"
+          fixed='bottom'>
+          <Container >
             <Button
-              className='navbar-buttons'
+              className='undo-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('undo')}
-              variant="outline-light"
-            >U</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='redo-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('redo')}
-              variant="outline-light"
-            >R</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='la-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('justifyleft')}
-              variant="outline-light"
-            >LA</Button>
+              variant='link'
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='ca-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('justifycenter')}
-              variant="outline-light"
-            >CA</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='ra-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('justifyright')}
-              variant="outline-light"
-            >RA</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='ol-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('insertorderedlist')}
-              variant="outline-light"
-            >OL</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='ul-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('insertunorderedlist')}
-              variant="outline-light"
-            >UL</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='indent-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('indent')}
-              variant="outline-light"
-            >AI</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='outdent-button navbar-buttons'
+              size='lg'
               onClick={() => this.applyStyleToEditor('outdent')}
-              variant="outline-light"
-            >DI</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
+              className='style-button navbar-buttons'
               onClick={() => this.applyStyleToEditor('removeFormat')}
-              variant="outline-light"
-            >RS</Button>
+              variant="link"
+            ></Button>
             <Button
-              className='navbar-buttons'
-              // bsPrefix='link-button'
+              className='link-button navbar-buttons'
               onClick={() => {
                 let link = prompt("enter the link");
                 if (link && !(/^\s*$/.test(link))) {
@@ -345,8 +356,8 @@ class TopNavbar extends React.Component {
                   this.applyStyleToEditor('createlink', "https://" + link);
                 }
               }}
-              variant="outline-light"
-            >Link</Button>
+              variant="link"
+            ></Button>
           </Container>
         </Navbar>
       </>
