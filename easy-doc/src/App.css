@@ -3,13 +3,54 @@
 }
 
 .navbar-buttons {
+  background-size: cover;
   margin-left: 4px;
+  padding-bottom: 10px;
 }
 
-/* .link-button {
-  background-image: url("./icons/right-alignment.png");
-  background-size: cover;
-} */
+.link-button {
+  background-image: url("./icons/link.png");
+}
+
+.style-button {
+  background-image: url("./icons/style.png");
+}
+
+.la-button {
+  background-image: url("./icons/la.png");
+}
+
+.undo-button {
+  background-image: url("./icons/undo.png");
+}
+
+.redo-button {
+  background-image: url("./icons/redo.png");
+}
+
+.ra-button {
+  background-image: url("./icons/ra.png");
+}
+
+.ca-button {
+  background-image: url("./icons/ca.png");
+}
+
+.ol-button {
+  background-image: url("./icons/ol.png");
+}
+
+.ul-button {
+  background-image: url("./icons/ul.png");
+}
+
+.indent-button {
+  background-image: url("./icons/indent.png");
+}
+
+.outdent-button {
+  background-image: url("./icons/outdent.png");
+}
 
 .text-editor {
   border: 1px #000000 solid;
