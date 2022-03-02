@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { Canvas } from './Canvas'
-import { ClearCanvasButton } from './ClearCanvasButton';
+import { useCanvas } from './CanvasContext'
 
 /**
  * Modal Box for free drawing.
@@ -38,11 +38,16 @@ class FreeDraw extends React.Component {
    *  @return { React.ReactNode } React virtual DOM.
    */
   render() {
+    const ClearCanvasButton = () => {
+      const { clearCanvas } = useCanvas()
+      return <Button variant="secondary" onClick={clearCanvas}>Clear</Button>
+    }
+
     return (
       <Modal
+        size="lg"
         show={this.props.show}
         onHide={this.props.handleDrawinghModalClose}
-        dialogClassName="modal-90w"
         centered
       >
         <Modal.Header
@@ -54,13 +59,10 @@ class FreeDraw extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <>
-            <Canvas />
-            <ClearCanvasButton />
-          </>
+          <Canvas className='canvas-box' />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">Clear</Button>
+          <ClearCanvasButton />
           <Button variant="primary">Save changes</Button>
         </Modal.Footer>
       </Modal>
