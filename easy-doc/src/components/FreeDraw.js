@@ -2,43 +2,8 @@ import React, { useRef, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
-
-/**
- * Drawing element.
- */
-const Canvas = props => {
-  const canvasRef = useRef(null)
-
-  const draw = (ctx, frameCount) => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#000000'
-    ctx.beginPath()
-    ctx.arc(50, 100, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
-    ctx.fill()
-  }
-
-  useEffect(() => {
-
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
-    let frameCount = 0
-    let animationFrameId
-
-    //Our draw came here
-    const render = () => {
-      frameCount++
-      draw(context, frameCount)
-      animationFrameId = window.requestAnimationFrame(render)
-    }
-    render()
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId)
-    }
-  }, [draw])
-
-  return <canvas ref={canvasRef} {...props} />
-}
+import { Canvas } from './Canvas'
+import { ClearCanvasButton } from './ClearCanvasButton';
 
 /**
  * Modal Box for free drawing.
@@ -51,14 +16,6 @@ class FreeDraw extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
-
-    const draw = (ctx, frameCount) => {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-      ctx.fillStyle = '#000000'
-      ctx.beginPath()
-      ctx.arc(50, 100, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
-      ctx.fill()
     }
   }
 
@@ -85,6 +42,7 @@ class FreeDraw extends React.Component {
       <Modal
         show={this.props.show}
         onHide={this.props.handleDrawinghModalClose}
+        dialogClassName="modal-90w"
         centered
       >
         <Modal.Header
@@ -96,10 +54,13 @@ class FreeDraw extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Canvas draw={this.draw} />
+          <>
+            <Canvas />
+            <ClearCanvasButton />
+          </>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">Close</Button>
+          <Button variant="secondary">Clear</Button>
           <Button variant="primary">Save changes</Button>
         </Modal.Footer>
       </Modal>
