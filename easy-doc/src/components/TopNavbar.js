@@ -258,7 +258,6 @@ class TopNavbar extends React.Component {
                 variant="outline-light"
               >U</Button>
               <Form.Control
-                // as='input'
                 value='11'
                 type='number'
                 htmlSize="10"
