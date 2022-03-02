@@ -42,6 +42,7 @@ class FreeDraw extends React.Component {
       <Modal
         show={this.props.show}
         onHide={this.props.handleDrawinghModalClose}
+        dialogClassName="modal-90w"
         centered
       >
         <Modal.Header
@@ -59,7 +60,7 @@ class FreeDraw extends React.Component {
           </>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">Close</Button>
+          <Button variant="secondary">Clear</Button>
           <Button variant="primary">Save changes</Button>
         </Modal.Footer>
       </Modal>
