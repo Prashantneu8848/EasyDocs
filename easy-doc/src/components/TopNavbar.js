@@ -9,7 +9,6 @@ import SpeechRecognition from './SpeechRecognition';
 import ImageFilePicker from './ImageFilePicker';
 import GoogleDrivePicker from './GoogleDrivePicker';
 import FreeDraw from './FreeDraw';
-import { LA } from '../icons/la.png';
 
 /**
  * stuffs to do:
