@@ -1,7 +1,12 @@
 import React from 'react'
+import { Container } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import PropTypes from 'prop-types';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import { Canvas } from './Canvas'
 import { useCanvas } from './CanvasContext'
 
@@ -49,6 +54,8 @@ class FreeDraw extends React.Component {
         show={this.props.show}
         onHide={this.props.handleDrawinghModalClose}
         centered
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header
           closeButton
