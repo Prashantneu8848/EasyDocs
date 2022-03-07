@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useCanvas } from "./CanvasContext";
+import React, { useEffect } from 'react';
+import { useCanvas } from './CanvasContext';
 
 export function Canvas() {
   const {

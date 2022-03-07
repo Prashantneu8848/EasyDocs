@@ -1,7 +1,7 @@
 import { useFilePicker } from "use-file-picker";
 import React, { useEffect } from "react";
 
-export default function ImageFilePicker() {
+export default function ImageFilePicker(props) {
   const [openFileSelector, { filesContent, loading, errors }] = useFilePicker({
     readAs: "DataURL",
     accept: "image/*",
@@ -12,8 +12,8 @@ export default function ImageFilePicker() {
   });
 
   useEffect(() => {
-    openFileSelector()
-  }, [])
+    openFileSelector();
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -23,12 +23,12 @@ export default function ImageFilePicker() {
     return <div>Error...</div>;
   } else {
     filesContent.map((file, index) => {
-      let elem = document.createElement("img")
-      console.log(typeof file);
+      let elem = document.createElement("img");
       elem.setAttribute('src', file.content);
       elem.setAttribute("alt", index);
       document.getElementsByClassName("text-editor")[0]
         .appendChild(elem);
+      props.handleFilePickerClose();
     });
   }
 

@@ -41,6 +41,13 @@ class TopNavbar extends React.Component {
     };
 
     /**
+     * Callback function to close the speech recognition modal box.
+     */
+    this.handleFilePickerClose = () => {
+      this.setState({ showFilePicker: false });
+    };
+
+    /**
      * Callback function to close the free drawing modal box.
      */
     this.handleDrawinghModalClose = () => {
@@ -101,9 +108,9 @@ class TopNavbar extends React.Component {
           <Container>
             <Nav className='ml-auto links'>
               <Form.Control
-                type="text"
-                htmlSize="10"
-                placeholder="Untitled" />
+                type='text'
+                htmlSize='10'
+                placeholder='Untitled' />
               <>
                 <Dropdown className='dropdowns'>
                   <Dropdown.Toggle
@@ -211,66 +218,66 @@ class TopNavbar extends React.Component {
               <>
                 <Form.Control
                   onChange={(e) => this.applyStyleToEditor('forecolor', e.target.value)}
-                  type="color"
-                  id="colorInput"
-                  title="Color"
+                  type='color'
+                  id='colorInput'
+                  title='Color'
                 />
                 <Form.Select
                   onChange={(e) => this.applyStyleToEditor('fontname', e.target.value)}
-                  aria-label="different fonts">
-                  <option value="Arial">Arial</option>
-                  <option value="Calibre">Calibre</option>
-                  <option value="Arial Black">Arial Black</option>
-                  <option value="Roboto">Roboto</option>
-                  <option value="Courier New">Courier New</option>
-                  <option value="Tahoma">Tahoma</option>
-                  <option value="Monaco">Monaco</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Luminari">Luminari</option>
-                  <option value="Verdana">Verdana</option>
-                  <option value="Times New Roman">Times New Roman</option>
+                  aria-label='different fonts'>
+                  <option value='Arial'>Arial</option>
+                  <option value='Calibre'>Calibre</option>
+                  <option value='Arial Black'>Arial Black</option>
+                  <option value='Roboto'>Roboto</option>
+                  <option value='Courier New'>Courier New</option>
+                  <option value='Tahoma'>Tahoma</option>
+                  <option value='Monaco'>Monaco</option>
+                  <option value='Georgia'>Georgia</option>
+                  <option value='Luminari'>Luminari</option>
+                  <option value='Verdana'>Verdana</option>
+                  <option value='Times New Roman'>Times New Roman</option>
                 </Form.Select>
               </>
               {/* Look into window.computedsize and window.selection */}
               <Button
                 className='navbar-buttons'
                 onClick={(e) => this.applyStyleToEditor('fontsize', 7)}
-                variant="outline-light"
+                variant='outline-light'
               >+</Button>
               <Button
                 className='navbar-buttons'
                 onClick={() => this.applyStyleToEditor('fontsize', 1)}
-                variant="outline-light"
+                variant='outline-light'
               >-</Button>
               <Button
                 className='navbar-buttons'
                 onClick={() => this.applyStyleToEditor('bold')}
-                variant="outline-light"
+                variant='outline-light'
               >B</Button>
               <Button
                 className='navbar-buttons'
                 onClick={() => this.applyStyleToEditor('italic')}
-                variant="outline-light"
+                variant='outline-light'
               >I</Button>
               <Button
                 className='navbar-buttons'
                 onClick={() => this.applyStyleToEditor('underline')}
-                variant="outline-light"
+                variant='outline-light'
               >U</Button>
               <Form.Control
                 value='11'
                 type='number'
-                htmlSize="10"
+                htmlSize='10'
                 onChange={(e) => console.log(e.target.value)}
               />
               <Form.Floating>
                 <Form.Control
                   onChange={(e) => this.applyStyleToEditor('backcolor', e.target.value)}
-                  type="color"
-                  id="colorInputBack"
-                  title="BackColor"
+                  type='color'
+                  id='colorInputBack'
+                  title='BackColor'
                 />
-                <label htmlFor="floatingInputCustom">BG</label>
+                <label htmlFor='floatingInputCustom'>BG</label>
               </Form.Floating>
             </Nav>
           </Container>
@@ -279,24 +286,26 @@ class TopNavbar extends React.Component {
           </Navbar.Brand>
         </Navbar>
         {this.state.showFilePicker &&
-          <ImageFilePicker />
+          <ImageFilePicker
+            handleFilePickerClose={this.handleFilePickerClose}
+          />
         }
         <br />
         <Navbar
-          bg="light"
+          bg='light'
           fixed='bottom'>
           <Container >
             <Button
               className='undo-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('undo')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='redo-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('redo')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='la-button navbar-buttons'
@@ -308,53 +317,53 @@ class TopNavbar extends React.Component {
               className='ca-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('justifycenter')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='ra-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('justifyright')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='ol-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('insertorderedlist')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='ul-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('insertunorderedlist')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='indent-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('indent')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='outdent-button navbar-buttons'
               size='lg'
               onClick={() => this.applyStyleToEditor('outdent')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='style-button navbar-buttons'
               onClick={() => this.applyStyleToEditor('removeFormat')}
-              variant="link"
+              variant='link'
             ></Button>
             <Button
               className='link-button navbar-buttons'
               onClick={() => {
-                let link = prompt("enter the link");
+                let link = prompt('enter the link');
                 if (link && !(/^\s*$/.test(link))) {
                   console.log(link);
-                  this.applyStyleToEditor('createlink', "https://" + link);
+                  this.applyStyleToEditor('createlink', 'https://' + link);
                 }
               }}
-              variant="link"
+              variant='link'
             ></Button>
           </Container>
         </Navbar>
