@@ -21,18 +21,16 @@ export default function ImageFilePicker() {
 
   if (errors.length) {
     return <div>Error...</div>;
+  } else {
+    filesContent.map((file, index) => {
+      let elem = document.createElement("img")
+      console.log(typeof file);
+      elem.setAttribute('src', file.content);
+      elem.setAttribute("alt", index);
+      document.getElementsByClassName("text-editor")[0]
+        .appendChild(elem);
+    });
   }
 
-  return (
-    <div>
-      {filesContent.map((file, index) => (
-        <div key={index}>
-          <img
-            alt={file.name}
-            src={file.content}></img>
-          <br />
-        </div>
-      ))}
-    </div>
-  );
+  return (null);
 }
