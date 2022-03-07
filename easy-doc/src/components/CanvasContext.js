@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from 'react';
 
 const CanvasContext = React.createContext();
 
@@ -14,9 +14,9 @@ export const CanvasProvider = ({ children }) => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const context = canvas.getContext("2d")
-    context.lineCap = "round";
-    context.strokeStyle = "black";
+    const context = canvas.getContext('2d')
+    context.lineCap = 'round';
+    context.strokeStyle = 'black';
     context.lineWidth = 5;
     contextRef.current = context;
   };
@@ -44,23 +44,23 @@ export const CanvasProvider = ({ children }) => {
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d")
-    context.fillStyle = "white"
+    const context = canvas.getContext('2d')
+    context.fillStyle = 'white'
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
 
   const downloadDrawing = () => {
     const canvas = canvasRef.current;
-    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    let image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
     window.location.href = image;
   }
 
   const insertDrawingImage = () => {
     const canvas = canvasRef.current;
-    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    let elem = document.createElement("img")
-    elem.setAttribute("src", image);
-    document.getElementsByClassName("text-editor")[0].appendChild(elem);
+    let image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+    let elem = document.createElement('img')
+    elem.setAttribute('src', image);
+    document.getElementsByClassName('text-editor')[0].appendChild(elem);
   }
 
   return (
