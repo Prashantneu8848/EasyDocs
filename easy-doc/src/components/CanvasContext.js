@@ -49,6 +49,12 @@ export const CanvasProvider = ({ children }) => {
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
 
+  const downloadDrawing = () => {
+    const canvas = canvasRef.current;
+    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    window.location.href = image;
+  }
+
   return (
     <CanvasContext.Provider
       value={{
@@ -58,6 +64,7 @@ export const CanvasProvider = ({ children }) => {
         startDrawing,
         finishDrawing,
         clearCanvas,
+        downloadDrawing,
         draw,
       }}
     >

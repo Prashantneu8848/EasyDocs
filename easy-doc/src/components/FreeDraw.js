@@ -56,6 +56,11 @@ class FreeDraw extends React.Component {
       return <Button variant="secondary" onClick={clearCanvas}>Clear</Button>
     }
 
+    const DownloadCanvasButton = () => {
+      const { downloadDrawing } = useCanvas()
+      return <Button variant="primary" onClick={downloadDrawing}>Use Drawing</Button>
+    }
+
     return (
       <Modal
         size="lg"
@@ -113,7 +118,7 @@ class FreeDraw extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ClearCanvasButton />
-          <Button variant="primary">Save changes</Button>
+          <DownloadCanvasButton />
         </Modal.Footer>
       </Modal>
     )
