@@ -27,6 +27,18 @@ class GoogleDrivePicker extends React.Component {
     let url = "https://drive.google.com/uc?export=view&id=" + data
     window.open(url, '_blank').focus();
   }
+
+  /**
+   * Inserts the image in the text editor.
+   * 
+   * @param {data} fileId for the image. 
+   */
+  insertImage(data) {
+    let url = "https://drive.google.com/uc?export=view&id=" + data
+    let elem = document.createElement("img")
+    elem.setAttribute("src", url);
+    document.getElementsByClassName("text-editor")[0].appendChild(elem);
+  }
   /**
    * Renders navigation bar at the top of the webpage.
    *  @return { React.ReactNode } React virtual DOM.
@@ -61,7 +73,7 @@ class GoogleDrivePicker extends React.Component {
               .setAppId(APP_ID)
               .setCallback((data) => {
                 if (data.action === google.picker.Action.PICKED) {
-                  this.previewImage(data.docs[0].id)
+                  this.insertImage(data.docs[0].id)
                 }
               })
               .enableFeature(google.picker.Feature.NAV_HIDDEN)
