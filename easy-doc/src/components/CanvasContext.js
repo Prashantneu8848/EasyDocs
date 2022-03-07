@@ -63,7 +63,6 @@ export const CanvasProvider = ({ children }) => {
     document.getElementsByClassName("text-editor")[0].appendChild(elem);
   }
 
-
   return (
     <CanvasContext.Provider
       value={{
@@ -71,6 +70,7 @@ export const CanvasProvider = ({ children }) => {
         contextRef,
         prepareCanvas,
         startDrawing,
+        downloadDrawing,
         finishDrawing,
         clearCanvas,
         downloadDrawing,
