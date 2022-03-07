@@ -58,12 +58,28 @@ class FreeDraw extends React.Component {
 
     const InsertCanvasButton = () => {
       const { insertDrawingImage } = useCanvas()
-      return <Button variant="primary" onClick={insertDrawingImage}>Use Drawing</Button>
+      return <Button
+        variant="primary"
+        onClick={() => {
+          insertDrawingImage();
+          this.props.handleDrawinghModalClose();
+        }}
+      >
+        Use Drawing
+      </Button>
     }
 
     const DownloadCanvasButton = () => {
       const { downloadDrawing } = useCanvas()
-      return <Button variant="secondary" onClick={downloadDrawing}>Download</Button>
+      return <Button
+        variant="secondary"
+        onClick={() => {
+          downloadDrawing();
+          this.props.handleDrawinghModalClose();
+        }}
+      >
+        Download
+      </Button>
     }
 
     return (
