@@ -56,9 +56,30 @@ class FreeDraw extends React.Component {
       return <Button variant="secondary" onClick={clearCanvas}>Clear</Button>
     }
 
+    const InsertCanvasButton = () => {
+      const { insertDrawingImage } = useCanvas()
+      return <Button
+        variant="primary"
+        onClick={() => {
+          insertDrawingImage();
+          this.props.handleDrawinghModalClose();
+        }}
+      >
+        Use Drawing
+      </Button>
+    }
+
     const DownloadCanvasButton = () => {
       const { downloadDrawing } = useCanvas()
-      return <Button variant="primary" onClick={downloadDrawing}>Use Drawing</Button>
+      return <Button
+        variant="secondary"
+        onClick={() => {
+          downloadDrawing();
+          this.props.handleDrawinghModalClose();
+        }}
+      >
+        Download
+      </Button>
     }
 
     return (
@@ -119,6 +140,7 @@ class FreeDraw extends React.Component {
         <Modal.Footer>
           <ClearCanvasButton />
           <DownloadCanvasButton />
+          <InsertCanvasButton />
         </Modal.Footer>
       </Modal>
     )

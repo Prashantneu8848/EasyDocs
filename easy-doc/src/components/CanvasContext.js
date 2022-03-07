@@ -55,6 +55,15 @@ export const CanvasProvider = ({ children }) => {
     window.location.href = image;
   }
 
+  const insertDrawingImage = () => {
+    const canvas = canvasRef.current;
+    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    let elem = document.createElement("img")
+    elem.setAttribute("src", image);
+    document.getElementsByClassName("text-editor")[0].appendChild(elem);
+  }
+
+
   return (
     <CanvasContext.Provider
       value={{
@@ -65,6 +74,7 @@ export const CanvasProvider = ({ children }) => {
         finishDrawing,
         clearCanvas,
         downloadDrawing,
+        insertDrawingImage,
         draw,
       }}
     >
