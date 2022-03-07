@@ -73,6 +73,7 @@ export const CanvasProvider = ({ children }) => {
         downloadDrawing,
         finishDrawing,
         clearCanvas,
+        downloadDrawing,
         insertDrawingImage,
         draw,
       }}
