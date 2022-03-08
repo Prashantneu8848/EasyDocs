@@ -18,6 +18,7 @@ class App extends Component {
 		this.state = {
 			translatedText: "",
 			printBtnClicked: false,
+			saveBtnClicked: false,
 		};
 
 		this.addTranslatedText = this.addTranslatedText.bind(this)
@@ -41,6 +42,13 @@ class App extends Component {
 	};
 
 	/**
+	 * Callback handler for save button in { @TopNavbar }.
+	 */
+	handleSaveButtonClick = () => {
+		this.setState({ saveBtnClicked: true });
+	};
+
+	/**
 	 * Renders { @TopNavbar } and { @TextEditor }.
 	 * @return { React.ReactNode } React virtual DOM.
 	 */
@@ -54,11 +62,13 @@ class App extends Component {
 							<div className='App-header'>
 								<TopNavbar
 									handlePrintButtonClick={this.handlePrintButtonClick}
+									handleSaveButtonClick={this.handleSaveButtonClick}
 									addTranslatedText={this.addTranslatedText} />
 							</div>
 							<div className='text-box'>
 								<TextEditor
 									printBtnClicked={this.state.printBtnClicked}
+									saveBtnClicked={this.state.saveBtnClicked}
 									text={this.state.translatedText} />
 							</div>
 						</div>

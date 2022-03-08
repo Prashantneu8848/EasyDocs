@@ -13,8 +13,7 @@ import FreeDraw from './FreeDraw';
 /**
  * stuffs to do:
  * 1. saving the stuffs locally in the browser so the stuffs are still there when the user refreshes the browser.
- * 2. fix image
- * 3. Version control
+ * 2. Version control
 */
 
 /**
@@ -82,6 +81,13 @@ class TopNavbar extends React.Component {
   };
 
   /**
+    * Callback function for the save button.
+    */
+  handleSaveButtonClick = () => {
+    this.props.handleSaveButtonClick();
+  };
+
+  /**
     * Applies styling to the selected text.
     * @param {String} command to apply to the text.
     * @param {Object} value to apply with the command.
@@ -122,6 +128,7 @@ class TopNavbar extends React.Component {
                   <Dropdown.Menu
                     className='dropdown-menu'>
                     <Dropdown.Item
+                      onClick={() => this.handleSaveButtonClick()}
                       className='option1'>
                       Save
                     </Dropdown.Item>

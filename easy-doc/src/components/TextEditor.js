@@ -14,6 +14,7 @@ class TextEditor extends React.Component {
 		this.state = {
 			textInEditor: this.props.text,
 			printBtnClicked: false,
+			saveBtnClicked: false,
 		};
 	}
 
@@ -21,7 +22,7 @@ class TextEditor extends React.Component {
 		* Invoked immediately after { @TextEditor } is mounted.
 		*/
 	componentDidMount = () => {
-		console.log(this.docRef.current.innerHTML);
+		// console.log(this.docRef.current.innerHTML);
 	}
 
 	/**
@@ -37,6 +38,16 @@ class TextEditor extends React.Component {
 		oPrntWin.document.close();
 	}
 
+	saveDoc = () => {
+		const blob = new Blob([this.docRef.current.innerHTML],
+			{ type: "text/plain;charset=utf-8" });
+		const a = document.createElement('a');
+		a.href = URL.createObjectURL(blob);
+		a.download = "easy-doc";
+		a.click();
+		URL.revokeObjectURL(a.href);
+	}
+
 	/** Invoked before a mounted component receives new props.
 	 * @param {Object}  nextProps for React component.
 	 */
@@ -45,7 +56,11 @@ class TextEditor extends React.Component {
 			this.setState({ textInEditor: this.state.textInEditor + nextProps.text });
 		}
 
-		if (typeof nextProps.printBtnClicked != 'undefined') {
+		if (typeof nextProps.saveBtnClicked != 'undefined') {
+			this.saveDoc();
+		}
+
+		if (typeof nextProps.printBtnClicked != 'undefined' && nextProps.printBtnClicked != 'false') {
 			this.printDoc();
 		}
 	}
@@ -55,9 +70,14 @@ class TextEditor extends React.Component {
 	 *  @return { React.ReactNode } React virtual DOM.
 	 */
 	render() {
+		if (this.state.saveBtnClicked) {
+			this.saveDoc();
+		}
+
 		if (this.state.printBtnClicked) {
 			this.printDoc();
 		}
+
 		return (
 			<div
 				className="text-editor"
