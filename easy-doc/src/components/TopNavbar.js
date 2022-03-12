@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
+import FreeDraw from './FreeDraw';
+import GoogleDrivePicker from './GoogleDrivePicker';
+import ImageFilePicker from './ImageFilePicker';
+import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import SpeechRecognition from './SpeechRecognition';
-import ImageFilePicker from './ImageFilePicker';
-import GoogleDrivePicker from './GoogleDrivePicker';
-import FreeDraw from './FreeDraw';
 
 /**
  * stuffs to do:
@@ -40,7 +41,7 @@ class TopNavbar extends React.Component {
     };
 
     /**
-     * Callback function to close the speech recognition modal box.
+     * Callback function to close the file picker modal box.
      */
     this.handleFilePickerClose = () => {
       this.setState({ showFilePicker: false });
@@ -104,6 +105,53 @@ class TopNavbar extends React.Component {
   }
 
   /**
+    * Reads the content of a file selected from
+    * {@code TextFilePicker} component.
+    */
+  handleLoadTextData = async (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    reader.onload = async (e) => {
+      const text = e.target.result
+      console.log(text);
+    };
+    reader.readAsText(e.target.files[0])
+  }
+
+  /**
+    * Modal component with file picker that lets to chose a file locally
+    * from the computer.
+    * @return { React.ReactNode } React virtual DOM for the component.
+    */
+  TextFilePicker = () => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    return (
+      <>
+        <Dropdown.Item
+          onClick={handleShow}
+          className='option4'>
+          Load
+        </Dropdown.Item>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Chose a document</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <input
+                type='file'
+                onChange={(e) => this.handleLoadTextData(e)} />;
+            </div>
+          </Modal.Body>
+        </Modal>
+      </>
+    )
+  };
+
+  /**
    * Renders navigation bar at the top of the webpage.
    * @return { React.ReactNode } React virtual DOM.
    */
@@ -141,6 +189,13 @@ class TopNavbar extends React.Component {
                       className='option3'>
                       Print
                     </Dropdown.Item>
+                    {/* <Dropdown.Item
+                      // onClick={() => this.TextFilePicker}
+                      onClick={() => this.setState({ showTextFilePicker: true })}
+                      className='option4'>
+                      Load
+                    </Dropdown.Item> */}
+                    <this.TextFilePicker />
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -292,11 +347,16 @@ class TopNavbar extends React.Component {
             Easy-Docs
           </Navbar.Brand>
         </Navbar>
-        {this.state.showFilePicker &&
+        {
+          this.state.showFilePicker &&
           <ImageFilePicker
             handleFilePickerClose={this.handleFilePickerClose}
           />
         }
+        {/* {
+          this.state.showTextFilePicker &&
+          <this.TextFilePicker />
+        } */}
         <br />
         <Navbar
           bg='light'
