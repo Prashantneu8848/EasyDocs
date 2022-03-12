@@ -193,12 +193,6 @@ class TopNavbar extends React.Component {
                       className='option3'>
                       Print
                     </Dropdown.Item>
-                    {/* <Dropdown.Item
-                      // onClick={() => this.TextFilePicker}
-                      onClick={() => this.setState({ showTextFilePicker: true })}
-                      className='option4'>
-                      Load
-                    </Dropdown.Item> */}
                     <this.TextFilePicker />
                   </Dropdown.Menu>
                 </Dropdown>
@@ -357,10 +351,6 @@ class TopNavbar extends React.Component {
             handleFilePickerClose={this.handleFilePickerClose}
           />
         }
-        {/* {
-          this.state.showTextFilePicker &&
-          <this.TextFilePicker />
-        } */}
         <br />
         <Navbar
           bg='light'
