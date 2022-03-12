@@ -114,6 +114,7 @@ class TopNavbar extends React.Component {
     reader.onload = async (e) => {
       const text = e.target.result
       console.log(text);
+      document.getElementById("text-editor").innerHTML = text;
     };
     reader.readAsText(e.target.files[0])
   }
@@ -143,7 +144,10 @@ class TopNavbar extends React.Component {
             <div>
               <input
                 type='file'
-                onChange={(e) => this.handleLoadTextData(e)} />;
+                onChange={(e) => {
+                  handleClose();
+                  this.handleLoadTextData(e)
+                }} />;
             </div>
           </Modal.Body>
         </Modal>
