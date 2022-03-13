@@ -1,4 +1,5 @@
 import React from 'react';
+import CryptoAES from 'crypto-js/aes';
 
 /**
  * Top navigation bar for menu options.
@@ -38,8 +39,12 @@ class TextEditor extends React.Component {
 		oPrntWin.document.close();
 	}
 
+	/**
+		* Saves the content in a text file after encryption with a secret key.
+		*/
 	saveDoc = () => {
-		const blob = new Blob([this.docRef.current.innerHTML],
+		let ciphertext = CryptoAES.encrypt(this.docRef.current.innerHTML, 'secret key 123');
+		const blob = new Blob([ciphertext],
 			{ type: "text/plain;charset=utf-8" });
 		const a = document.createElement('a');
 		a.href = URL.createObjectURL(blob);
