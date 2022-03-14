@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
+import CryptoAES from 'crypto-js/aes';
+import CryptoENC from 'crypto-js/enc-utf8';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import FreeDraw from './FreeDraw';
@@ -112,9 +114,10 @@ class TopNavbar extends React.Component {
     e.preventDefault();
     let reader = new FileReader();
     reader.onload = async (e) => {
-      const text = e.target.result
-      console.log(text);
-      document.getElementById("text-editor").innerHTML = text;
+      const decrypt = CryptoAES.decrypt(e.target.result.toString(),
+        'secret key 123');
+      document.getElementsByClassName("text-editor")[0].innerHTML =
+        decrypt.toString(CryptoENC);
     };
     reader.readAsText(e.target.files[0])
   }
