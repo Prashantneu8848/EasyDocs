@@ -353,9 +353,9 @@ class TopNavbar extends React.Component {
               >U</Button>
               <Button
                 className='navbar-buttons'
-                onClick={() => this.applyStyleToEditor('superscript')}
+                onClick={() => this.applyStyleToEditor('strikeThrough')}
                 variant='outline-light'
-              >SU</Button>
+              >S</Button>
               <Form.Control
                 value='11'
                 type='number'
