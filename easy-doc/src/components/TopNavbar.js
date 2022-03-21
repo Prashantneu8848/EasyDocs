@@ -64,7 +64,6 @@ class TopNavbar extends React.Component {
       fetch('/speechtotext')
         .then((response) => response.text())
         .then((text) => {
-          console.log(text);
           this.props.addTranslatedText(text);
           this.setState({ speechModalBoxShow: false });
         })
@@ -98,7 +97,8 @@ class TopNavbar extends React.Component {
   applyStyleToEditor = (command, value) => {
     if (command in ['removeFormat', 'outdent', 'indent', 'forecolor',
       'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor',
-      'insertunorderedlist', 'insertorderedlist', 'underline', 'superscript', 'subscript']) {
+      'insertunorderedlist', 'insertorderedlist', 'underline', 'superscript',
+      'subscript', 'formatBlock']) {
       document.execCommand('styleWithCSS', false, true);
     } else {
       document.execCommand('styleWithCSS', false, false);
@@ -360,12 +360,17 @@ class TopNavbar extends React.Component {
                 onClick={() => this.applyStyleToEditor('strikeThrough')}
                 variant='outline-light'
               >S</Button>
-              <Form.Control
-                value='11'
-                type='number'
-                htmlSize='10'
-                onChange={(e) => console.log(e.target.value)}
-              />
+              <Form.Select
+                onChange={(e) =>
+                  this.applyStyleToEditor('formatBlock', 'H' + e.target.value.slice(-1))}
+                aria-label='different fonts'>
+                <option value='Heading 6'>Heading 6</option>
+                <option value='Heading 5'>Heading 5</option>
+                <option value='Heading 4'>Heading 4</option>
+                <option value='Heading 3'>Heading 3</option>
+                <option value='Heading 2'>Heading 2</option>
+                <option value='Heading 1'>Heading 1</option>
+              </Form.Select>
               <Form.Floating>
                 <Form.Control
                   onChange={(e) => this.applyStyleToEditor('backcolor', e.target.value)}
@@ -456,7 +461,6 @@ class TopNavbar extends React.Component {
               onClick={() => {
                 let link = prompt('enter the link');
                 if (link && !(/^\s*$/.test(link))) {
-                  console.log(link);
                   this.applyStyleToEditor('createlink', 'https://' + link);
                 }
               }}
