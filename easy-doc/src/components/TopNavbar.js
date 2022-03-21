@@ -98,12 +98,11 @@ class TopNavbar extends React.Component {
   applyStyleToEditor = (command, value) => {
     if (command in ['removeFormat', 'outdent', 'indent', 'forecolor',
       'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor',
-      'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript']) {
+      'insertunorderedlist', 'insertorderedlist', 'underline', 'superscript', 'subscript']) {
       document.execCommand('styleWithCSS', false, true);
     } else {
       document.execCommand('styleWithCSS', false, false);
     }
-    document.execCommand('styleWithCSS', false, false);
     document.execCommand(command, false, value);
   }
 
@@ -250,6 +249,11 @@ class TopNavbar extends React.Component {
                       className='option3'>
                       <GoogleDrivePicker />
                     </Dropdown.Item>
+                    <Button
+                      onClick={() => this.applyStyleToEditor('insertHorizontalRule')}
+                      variant='light'>
+                      Horizontal Line
+                    </Button>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
