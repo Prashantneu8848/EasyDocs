@@ -98,11 +98,12 @@ class TopNavbar extends React.Component {
   applyStyleToEditor = (command, value) => {
     if (command in ['removeFormat', 'outdent', 'indent', 'forecolor',
       'fontname', 'justifyleft', 'justifyright', 'justifycenter', 'backcolor',
-      'insertunorderedlist', 'insertorderedlist']) {
+      'insertunorderedlist', 'insertorderedlist', 'superscript', 'subscript']) {
       document.execCommand('styleWithCSS', false, true);
     } else {
       document.execCommand('styleWithCSS', false, false);
     }
+    document.execCommand('styleWithCSS', false, false);
     document.execCommand(command, false, value);
   }
 
@@ -258,6 +259,29 @@ class TopNavbar extends React.Component {
                     variant='dark'
                     id='dropdown-basic'
                     className='dropdown-toggle'>
+                    Format
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu
+                    className='dropdown-menu'>
+                    <Button
+                      onClick={() => this.applyStyleToEditor('superscript')}
+                      variant='light'>
+                      Superscript
+                    </Button>
+                    <Button
+                      onClick={() => this.applyStyleToEditor('subscript')}
+                      variant='light'>
+                      Subscript
+                    </Button>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+              <>
+                <Dropdown className='dropdowns'>
+                  <Dropdown.Toggle
+                    variant='dark'
+                    id='dropdown-basic'
+                    className='dropdown-toggle'>
                     Tools
                   </Dropdown.Toggle>
                   <Dropdown.Menu
@@ -327,6 +351,11 @@ class TopNavbar extends React.Component {
                 onClick={() => this.applyStyleToEditor('underline')}
                 variant='outline-light'
               >U</Button>
+              <Button
+                className='navbar-buttons'
+                onClick={() => this.applyStyleToEditor('superscript')}
+                variant='outline-light'
+              >SU</Button>
               <Form.Control
                 value='11'
                 type='number'
