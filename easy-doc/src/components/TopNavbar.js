@@ -5,6 +5,7 @@ import CryptoAES from 'crypto-js/aes';
 import CryptoENC from 'crypto-js/enc-utf8';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
+import FindAndReplace from './FindAndReplace';
 import FreeDraw from './FreeDraw';
 import GoogleDrivePicker from './GoogleDrivePicker';
 import ImageFilePicker from './ImageFilePicker';
@@ -33,6 +34,7 @@ class TopNavbar extends React.Component {
       speechModalBoxShow: false,
       showFilePicker: false,
       drawinghModalBoxShow: false,
+      findAndReplaceModalBoxShow: false,
     };
 
     /**
@@ -54,6 +56,13 @@ class TopNavbar extends React.Component {
      */
     this.handleDrawinghModalClose = () => {
       this.setState({ drawinghModalBoxShow: false });
+    };
+
+    /**
+     * Callback function to close the find and replace drawing modal box.
+     */
+    this.handleFindAndReplacehModalClose = () => {
+      this.setState({ findAndReplaceModalBoxShow: false });
     };
 
     /**
@@ -218,6 +227,15 @@ class TopNavbar extends React.Component {
                       className='option2'>
                       Redo
                     </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => this.setState({ findAndReplaceModalBoxShow: true })}
+                      className='option3'>
+                      Find and replace
+                    </Dropdown.Item>
+                    <FindAndReplace
+                      show={this.state.findAndReplaceModalBoxShow}
+                      handleFindAndReplacehModalClose={this.handleFindAndReplacehModalClose}
+                    />
                   </Dropdown.Menu>
                 </Dropdown>
               </>
