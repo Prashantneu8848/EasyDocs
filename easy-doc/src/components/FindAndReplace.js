@@ -15,6 +15,10 @@ class FindAndReplace extends React.Component {
      */
   constructor(props) {
     super(props);
+    this.state = {
+      findWord: '',
+      replaceWith: '',
+    };
   }
 
   /**
@@ -31,19 +35,27 @@ class FindAndReplace extends React.Component {
     console.log('find and replace component is now closed');
   }
 
+  /**
+   * Gets the word to be replaced and the word to replace it with and replaces the occurence
+   * of the string either the first or all and updates the text editor.
+   * 
+   * @param {bool} isReplaceAll flag that determines to replace all or one occurence
+   * of the string
+   */
   replaceAll = (isReplaceAll) => {
+    this.props.handleFindAndReplacehModalClose();
     const prevHtml = document.getElementsByClassName("text-editor")[0].innerHTML;
-    const testVar = 'pras'
     let replacedHtml;
     let regex;
     if (isReplaceAll) {
-      regex = new RegExp(testVar, 'g');
-      replacedHtml = prevHtml.replace(regex, 'neu');
+      regex = new RegExp(this.state.findWord, 'g');
+      replacedHtml = prevHtml.replace(regex, this.state.replaceWith);
     } else {
-      regex = new RegExp(testVar);
-      replacedHtml = prevHtml.replace(regex, 'neu');
+      regex = new RegExp(this.state.findWord);
+      replacedHtml = prevHtml.replace(regex, this.state.replaceWith);
     }
     document.getElementsByClassName("text-editor")[0].innerHTML = replacedHtml;
+    this.setState({ findWord: '', replaceWith: '' });
   }
 
   /**
@@ -75,24 +87,26 @@ class FindAndReplace extends React.Component {
             <Form.Group>
               <Form.Label>Find</Form.Label>
               <Form.Control
+                value={this.state.findWord}
+                onChange={e => this.setState({ findWord: e.target.value })}
                 placeholder="Enter word to find" />
             </Form.Group>
             <Form.Group>
               <Form.Label>Replace with</Form.Label>
               <Form.Control
+                value={this.state.replaceWith}
+                onChange={e => this.setState({ replaceWith: e.target.value })}
                 placeholder="new word to replace with" />
             </Form.Group>
             <Modal.Footer>
               <Button
                 onClick={() => {
                   this.replaceAll(true);
-                  this.props.handleFindAndReplacehModalClose();
                 }}
                 variant="primary">Replace All</Button>
               <Button
                 onClick={() => {
                   this.replaceAll(false);
-                  this.props.handleFindAndReplacehModalClose();
                 }}
                 variant="secondary">Replace</Button>
             </Modal.Footer>
