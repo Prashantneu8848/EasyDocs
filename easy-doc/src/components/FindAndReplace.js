@@ -32,11 +32,18 @@ class FindAndReplace extends React.Component {
   }
 
   replaceAll = (isReplaceAll) => {
+    const prevHtml = document.getElementsByClassName("text-editor")[0].innerHTML;
+    const testVar = 'pras'
+    let replacedHtml;
+    let regex;
     if (isReplaceAll) {
-      console.log('replace all');
+      regex = new RegExp(testVar, 'g');
+      replacedHtml = prevHtml.replace(regex, 'neu');
     } else {
-      console.log('replace first occurring');
+      regex = new RegExp(testVar);
+      replacedHtml = prevHtml.replace(regex, 'neu');
     }
+    document.getElementsByClassName("text-editor")[0].innerHTML = replacedHtml;
   }
 
   /**
